@@ -12,7 +12,9 @@ import Dashboard from './app/components/dashboard'
 
 export default class fitbet extends Component {
   render() {
-    return (<Dashboard/>);
+    return (
+    	<Dashboard/>
+    	);
   }
 }
 
