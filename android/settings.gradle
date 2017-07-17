@@ -1,0 +1,3 @@
+rootProject.name = 'fitbet'
+
+include ':app'
