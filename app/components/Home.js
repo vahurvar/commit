@@ -11,7 +11,7 @@ import {
     StyleSheet
 } from 'react-native';
 
-export default class Dashboard extends Component {
+export default class Home extends Component {
 
     render() {
         return (

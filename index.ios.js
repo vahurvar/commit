@@ -8,12 +8,12 @@ import React, { Component } from 'react';
 import {
   AppRegistry
 } from 'react-native';
-import Dashboard from './app/components/dashboard'
+import Login from './app/components/Login.js'
 
 export default class fitbet extends Component {
   render() {
     return (
-    	<Dashboard/>
+    	<Login/>
     	);
   }
 }
