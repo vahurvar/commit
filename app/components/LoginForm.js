@@ -10,7 +10,6 @@ import {
     Text,
     StyleSheet,
     TextInput,
-    TouchableOpacity,
     StatusBar
 } from 'react-native';
 
@@ -45,12 +44,6 @@ export default class LoginForm extends Component {
                 style={styles.input}
                 />
 
-                <TouchableOpacity style={styles.buttonContainer}>
-                    <Text style={styles.buttonText}>
-                    LOGIN
-                    </Text>
-                </TouchableOpacity>
-
             </View>
         );
     }
@@ -58,7 +51,10 @@ export default class LoginForm extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 40
+        paddingLeft: 40,
+        paddingRight: 40,
+        paddingTop: 40,
+        paddingBottom: 10
     },
 
     input: {
@@ -69,18 +65,6 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         paddingHorizontal: 10
     },
-
-    buttonContainer: {
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        paddingVertical: 15
-    },
-
-    buttonText: {
-        textAlign: 'center',
-        fontWeight: 'bold',
-        color: '#ff7978'
-    }
 
 });
 

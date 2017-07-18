@@ -10,12 +10,21 @@ import {
     Text,
     StyleSheet,
     Image,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    TouchableOpacity
 } from 'react-native';
 
-import LoginForm from './LoginForm.js';
+import LoginForm from "./LoginForm.js"
 
 export default class Login extends Component {
+
+    static navigationOptions = {
+        header: navigation => {
+            tintColor: '#ff7978'
+    }
+    }
+
+
 
     render() {
         return (
@@ -26,17 +35,27 @@ export default class Login extends Component {
 
                     <Image 
                     style={styles.logo} 
-                    source={require('./img/oathlogo.png')} 
+                    source={require('./img/oathlogo.png')}
                     />
 
                 </View>
                 <View style={styles.form}>
                     <LoginForm />
                 </View>
+
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('HomePage')}>
+                    <Text style={styles.buttonText}>
+                    LOGIN
+                    </Text>
+                </TouchableOpacity>
+
             </KeyboardAvoidingView>
         );
     }
 }
+
+
+
 
 const styles = StyleSheet.create({
     container: {
@@ -67,10 +86,21 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#fff',
         textAlign: 'center'
+    },
+
+    buttonContainer: {
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        marginBottom: 30,
+        padding: 15,
+        marginLeft: 40,
+        marginRight: 40
+    },
+
+    buttonText: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: '#ff7978'
     }
-
 });
-
-
-
 

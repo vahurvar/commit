@@ -8,24 +8,30 @@ import React, {
 import {
     View,
     Text,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 
+
+
 export default class Home extends Component {
+
+    static navigationOptions = {
+        title: 'Home',
+        headerTintColor: 'white',
+        headerStyle: { backgroundColor: '#ff7978' },
+        headerTitleStyle: { color: '#fff' }
+    }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React!
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit index.ios.js
-                </Text>
-                <Text style={styles.instructions}>
-                    Press Cmd+R to reload,{'\n'}
-                    Cmd+D or shake for dev menu
-                </Text>
+                <View style={styles.textAndButtonContainer}>
+                    <Text style={styles.textAboveButton}>You do not have any oaths, click below to begin!</Text>
+                    <TouchableOpacity style={styles.newOathButtonContainer}>
+                        <Text style={styles.newOathButtonText}>New Oath</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
@@ -34,17 +40,34 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        backgroundColor: '#fff'
     },
-    welcome: {
-        fontSize: 50,
-        textAlign: 'center',
-        margin: 10,
+    textAndButtonContainer: {
+        alignItems: 'center',
+        flexGrow: 1,
+        justifyContent: 'center'
     },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
+    textAboveButton: {
+        color: '#ff7978',
+        fontSize: 15,
+        width: 200,
+        textAlign: 'center'
     },
+    newOathButtonContainer: {
+        backgroundColor: '#ff7978',
+        borderRadius: 10,
+        padding: 10,
+        marginTop: 10,
+        width: '80%'
+    },
+    newOathButtonText: {
+        color: '#fff',
+        fontSize: 20,
+        textAlign: 'center'
+    }
+    
 });
+
+
+
+
