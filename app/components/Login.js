@@ -26,7 +26,7 @@ export default class Login extends Component {
 
                     <Image 
                     style={styles.logo} 
-                    source={require('/Users/michaeltaszycki/Desktop/fitbet/ios/fitbet/Images.xcassets/oathlogo.png')} 
+                    source={require('./img/oathlogo.png')} 
                     />
 
                 </View>
