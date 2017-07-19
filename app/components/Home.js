@@ -35,7 +35,7 @@ export default class Home extends Component {
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.newOathButtonContainer} onPress={() => this.props.navigation.navigate('CheckinPage')}>
-                        <Text style={styles.newOathButtonText}>Checkin</Text>
+                        <Text style={styles.newOathButtonText}>Check-in</Text>
                     </TouchableOpacity>
 
                 </View>

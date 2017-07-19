@@ -10,7 +10,8 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    Image
+    Image,
+    MapView
 } from 'react-native';
 import GoogleLocations from "../services/GoogleLocations";
 
@@ -24,7 +25,8 @@ export default class Checkin extends Component {
             initialPosition: 'unknown',
             latitude: null,
             longitude: null,
-            isGymNearby: false
+            isGymNearby: false,
+            gymNearbyText: '',
         }
     }
 
@@ -33,7 +35,7 @@ export default class Checkin extends Component {
     }
 
     static navigationOptions = {
-        title: 'Checkin',
+        title: 'Check-in',
         headerTintColor: '#fff',
         headerStyle: { backgroundColor: '#051baa' },
         headerTitleStyle: { color: '#fff' }
@@ -57,15 +59,25 @@ export default class Checkin extends Component {
         GoogleLocations.isGymNearby(this.state.latitude, this.state.longitude)
             .then(result => {
                 this.setState({isGymNearby: result})
-                console.log(this.state.isGymNearby)
+                this.setText()
             })
+    }
+
+    setText() {
+        if (this.state.isGymNearby) {
+            this.setState({ gymNearbyText: 'You have been checked in!' })
+        }
+        else if (!this.state.isGymNearby) {
+            this.setState({ gymNearbyText: 'Sorry, you are not at a gym!'})
+        }
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.textAndButtonContainer}>
-                    <Text>{this.state.isGymNearby.toString()}</Text>
+                    <Text style={styles.checkInResult}>{this.state.gymNearbyText}</Text>
+                    <Image style={styles.mapImage} source={require('./img/map.png')}/>
                 </View>
             </View>
         );
@@ -84,7 +96,7 @@ const styles = StyleSheet.create({
     textAndButtonContainer: {
         alignItems: 'center',
         flexGrow: 1,
-        justifyContent: 'center'
+        justifyContent: 'flex-start'
     },
     textAboveButton: {
         color: '#a9a9a9',
@@ -103,6 +115,18 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 20,
         textAlign: 'center'
+    },
+    checkInResult: {
+        color: '#051baa',
+        fontSize: 20,
+        marginTop: 25
+    },
+    mapImage: {
+        height: 450,
+        width: '80%',
+        marginTop: 40,
+        borderRadius: 10
+
     }
     
 });

@@ -19,7 +19,7 @@ export default class GoogleLocations {
             key: 'AIzaSyAD1IVgtb98549HrYkr80p4sH8FtknzrZQ',
             location: latitude + ',' + longitude,
             type: 'gym',
-            radius: 200
+            radius: 50
         });
         return apiUrl + params;
     }
