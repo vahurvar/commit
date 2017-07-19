@@ -20,9 +20,9 @@ export default class Login extends Component {
 
     static navigationOptions = {
         title: 'Login',
-        headerTintColor: '#ff7978',
-        headerStyle: { backgroundColor: '#ff7978' },
-        headerTitleStyle: { color: '#ff7978' }
+        headerTintColor: '#fff',
+        headerStyle: { backgroundColor: '#fff' },
+        headerTitleStyle: { color: '#fff' }
     }
 
 
@@ -32,11 +32,11 @@ export default class Login extends Component {
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
                 <View style={styles.logoContainer}>
 
-                    <Text style={styles.title}>Commit</Text>
+                    <Text style={styles.title}>commit</Text>
 
                     <Image 
                     style={styles.logo} 
-                    source={require('./img/oathlogo.png')}
+                    source={require('./img/commitlogo.png')}
                     />
 
                 </View>
@@ -65,7 +65,7 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ff7978'
+        backgroundColor: '#fff'
     },
 
     logoContainer: {
@@ -82,12 +82,12 @@ const styles = StyleSheet.create({
     },
 
     logo: {
-        height: 125,
-        width: 110
+        height: 128,
+        width: 128
     },
 
     noAccountText: {
-        color: '#fff',
+        color: '#a9a9a9',
         width: 320,
         textAlign: 'center',
         opacity: 0.8
@@ -95,13 +95,14 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 50,
+        marginBottom: 20,
         fontWeight: 'bold',
-        color: '#fff',
+        color: '#a9a9a9',
         textAlign: 'center'
     },
 
     buttonContainer: {
-        backgroundColor: '#fff',
+        backgroundColor: '#051baa',
         borderRadius: 10,
         marginBottom: 10,
         padding: 15,
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         fontWeight: 'bold',
-        color: '#ff7978'
+        color: '#fff'
     }
 });
 

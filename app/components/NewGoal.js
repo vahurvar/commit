@@ -21,7 +21,7 @@ export default class NewGoal extends Component {
     static navigationOptions = {
         title: 'New Goal',
         headerTintColor: '#fff',
-        headerStyle: { backgroundColor: '#ff7978' },
+        headerStyle: { backgroundColor: '#051baa' },
         headerTitleStyle: { color: '#fff' }
     }
 
@@ -58,7 +58,7 @@ export default class NewGoal extends Component {
 
                     <TextInput 
                     placeholder="Goal Title..."
-                    placeholderTextColor="#ff7978"
+                    placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -83,7 +83,7 @@ export default class NewGoal extends Component {
 
                     <TextInput 
                     placeholder="Gym/Run Goal..."
-                    placeholderTextColor="#ff7978"
+                    placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -92,7 +92,7 @@ export default class NewGoal extends Component {
 
                     <TextInput 
                     placeholder="Start Date..."
-                    placeholderTextColor="#ff7978"
+                    placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -101,7 +101,7 @@ export default class NewGoal extends Component {
 
                     <TextInput 
                     placeholder="End Date..."
-                    placeholderTextColor="#ff7978"
+                    placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     textAboveButton: {
-        color: '#ff7978',
+        color: '#051baa',
         fontSize: 15,
         width: 200,
         textAlign: 'center'
@@ -137,23 +137,23 @@ const styles = StyleSheet.create({
     gymButtonContainer: {
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#ff7978',
+        borderColor: '#051baa',
         borderRadius: 10,
         padding: 4,
         width: '20%%',
         marginLeft: 80
     },
     gymButtonPressed: {
-        backgroundColor: '#ff7978',
+        backgroundColor: '#051baa',
         borderWidth: 1,
-        borderColor: '#ff7978',
+        borderColor: '#051baa',
         borderRadius: 10,
         padding: 4,
         width: '20%%',
         marginLeft: 80
     },
     gymButtonText: {
-        color: '#ff7978',
+        color: '#051baa',
         fontSize: 20,
         textAlign: 'center'
     },
@@ -165,23 +165,23 @@ const styles = StyleSheet.create({
     runButtonContainer: {
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#ff7978',
+        borderColor: '#051baa',
         borderRadius: 10,
         padding: 4,
         width: '20%%',
         marginRight: 80
     },
     runButtonPressed: {
-        backgroundColor: '#ff7978',
+        backgroundColor: '#051baa',
         borderWidth: 1,
-        borderColor: '#ff7978',
+        borderColor: '#051baa',
         borderRadius: 10,
         padding: 4,
         width: '20%%',
         marginRight: 80
     },
     runButtonText: {
-        color: '#ff7978',
+        color: '#051baa',
         fontSize: 20,
         textAlign: 'center'
     },
@@ -195,8 +195,8 @@ const styles = StyleSheet.create({
         width: '80%',
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#ff7978',
-        color: '#ff7978',
+        borderColor: '#051baa',
+        color: '#051baa',
         borderRadius: 10,
         paddingHorizontal: 10,
         marginTop: 25
@@ -206,14 +206,14 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: '80%',
         backgroundColor: '#fff',
-        borderColor: '#ff7978',
+        borderColor: '#051baa',
         marginTop: 25,
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row'
     },
     addNewGoalButton: {
-        backgroundColor: '#ff7978',
+        backgroundColor: '#051baa',
         borderRadius: 10,
         padding: 10,
         marginTop: '50%',

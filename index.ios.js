@@ -18,6 +18,7 @@ import Login from './app/components/Login.js'
 import Menu from './app/components/Menu.js'
 import NewGoal from './app/components/NewGoal.js'
 import Register from './app/components/Register.js'
+import Checkin from './app/components/Checkin.js'
 
 const App = StackNavigator({
 	LoginPage: {
@@ -31,6 +32,9 @@ const App = StackNavigator({
   	},
   	RegisterPage: {
   		screen: Register,
+  	},
+  	CheckinPage: {
+  		screen: Checkin,
   	}
 });
 
