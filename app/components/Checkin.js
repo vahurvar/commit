@@ -12,6 +12,7 @@ import {
     TouchableOpacity,
     Image
 } from 'react-native';
+import GoogleLocations from "../services/GoogleLocations";
 
 
 
@@ -23,7 +24,12 @@ export default class Checkin extends Component {
             initialPosition: 'unknown',
             latitude: null,
             longitude: null,
+            isGymNearby: false
         }
+    }
+
+    componentWillMount() {
+        this.getPosition()
     }
 
     static navigationOptions = {
@@ -40,23 +46,26 @@ export default class Checkin extends Component {
             this.setState({initialPosition});
             this.setState({ latitude: position.coords.latitude });
             this.setState({ longitude: position.coords.longitude });
+            this.getIsGymNearby();
         },
         (error) => alert(error.message),
         {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
         );
+    }
 
+    getIsGymNearby() {
+        GoogleLocations.isGymNearby(this.state.latitude, this.state.longitude)
+            .then(result => {
+                this.setState({isGymNearby: result})
+                console.log(this.state.isGymNearby)
+            })
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.textAndButtonContainer}>
-                    <TouchableOpacity onPress={() => this.getPosition()} style={styles.newOathButtonContainer}>
-                        <Text style={styles.newOathButtonText}>Get Location</Text>
-                    </TouchableOpacity>
-                    <Text>{this.state.initialPosition}</Text>
-                    <Text>{this.state.latitude}</Text>
-                    <Text>{this.state.longitude}</Text>
+                    <Text>{this.state.isGymNearby.toString()}</Text>
                 </View>
             </View>
         );
