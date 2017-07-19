@@ -28,7 +28,7 @@ export default class Home extends Component {
             <View style={styles.container}>
                 <View style={styles.textAndButtonContainer}>
                     <Text style={styles.textAboveButton}>You do not have any oaths, click below to begin!</Text>
-                    <TouchableOpacity style={styles.newOathButtonContainer}>
+                    <TouchableOpacity style={styles.newOathButtonContainer} onPress={() => this.props.navigation.navigate('NewGoalPage')}>
                         <Text style={styles.newOathButtonText}>New Oath</Text>
                     </TouchableOpacity>
                 </View>

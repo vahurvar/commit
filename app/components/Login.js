@@ -19,9 +19,10 @@ import LoginForm from "./LoginForm.js"
 export default class Login extends Component {
 
     static navigationOptions = {
-        header: navigation => {
-            tintColor: '#ff7978'
-    }
+        title: 'Login',
+        headerTintColor: '#ff7978',
+        headerStyle: { backgroundColor: '#ff7978' },
+        headerTitleStyle: { color: '#ff7978' }
     }
 
 
@@ -31,7 +32,7 @@ export default class Login extends Component {
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
                 <View style={styles.logoContainer}>
 
-                    <Text style={styles.title}>Oath</Text>
+                    <Text style={styles.title}>Commit</Text>
 
                     <Image 
                     style={styles.logo} 
@@ -49,6 +50,10 @@ export default class Login extends Component {
                     </Text>
                 </TouchableOpacity>
 
+
+                <View style={styles.noAccountContainer}>
+                    <Text style={styles.noAccountText} onPress={() => this.props.navigation.navigate('RegisterPage')}>Don't have an account? Click here to make one!</Text>
+                </View>
             </KeyboardAvoidingView>
         );
     }
@@ -69,16 +74,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
 
+    noAccountContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20,
+        marginTop: 5,
+    },
+
     logo: {
         height: 125,
         width: 110
     },
 
-    description: {
+    noAccountText: {
         color: '#fff',
-        marginTop: 10,
-        width: 150,
-        textAlign: 'center'
+        width: 320,
+        textAlign: 'center',
+        opacity: 0.8
     },
 
     title: {
@@ -91,7 +103,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         backgroundColor: '#fff',
         borderRadius: 10,
-        marginBottom: 30,
+        marginBottom: 10,
         padding: 15,
         marginLeft: 40,
         marginRight: 40

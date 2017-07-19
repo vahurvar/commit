@@ -16,6 +16,8 @@ import {
 import Home from './app/components/Home.js'
 import Login from './app/components/Login.js'
 import Menu from './app/components/Menu.js'
+import NewGoal from './app/components/NewGoal.js'
+import Register from './app/components/Register.js'
 
 const App = StackNavigator({
 	LoginPage: {
@@ -23,7 +25,13 @@ const App = StackNavigator({
   },
 	HomePage: {
     screen: Home,
-  }
+  },
+  	NewGoalPage: {
+  		screen: NewGoal,
+  	},
+  	RegisterPage: {
+  		screen: Register,
+  	}
 });
 
 export default class fitbet extends Component {
