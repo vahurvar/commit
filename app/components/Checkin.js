@@ -15,29 +15,48 @@ import {
 
 
 
-export default class Home extends Component {
+export default class Checkin extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            initialPosition: 'unknown',
+            latitude: null,
+            longitude: null,
+        }
+    }
 
     static navigationOptions = {
-        title: 'Home',
+        title: 'Checkin',
         headerTintColor: '#fff',
         headerStyle: { backgroundColor: '#051baa' },
         headerTitleStyle: { color: '#fff' }
+    }
+
+    getPosition() {
+        navigator.geolocation.getCurrentPosition(
+        (position) => {
+            var initialPosition = JSON.stringify(position);
+            this.setState({initialPosition});
+            this.setState({ latitude: position.coords.latitude });
+            this.setState({ longitude: position.coords.longitude });
+        },
+        (error) => alert(error.message),
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+        );
+
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.textAndButtonContainer}>
-                    <Text style={styles.textAboveButton}>You do not have any oaths, click below to begin!</Text>
-
-                    <TouchableOpacity style={styles.newOathButtonContainer} onPress={() => this.props.navigation.navigate('NewGoalPage')}>
-                        <Text style={styles.newOathButtonText}>New Oath</Text>
+                    <TouchableOpacity onPress={() => this.getPosition()} style={styles.newOathButtonContainer}>
+                        <Text style={styles.newOathButtonText}>Get Location</Text>
                     </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.newOathButtonContainer} onPress={() => this.props.navigation.navigate('CheckinPage')}>
-                        <Text style={styles.newOathButtonText}>Checkin</Text>
-                    </TouchableOpacity>
-
+                    <Text>{this.state.initialPosition}</Text>
+                    <Text>{this.state.latitude}</Text>
+                    <Text>{this.state.longitude}</Text>
                 </View>
             </View>
         );
@@ -78,7 +97,3 @@ const styles = StyleSheet.create({
     }
     
 });
-
-
-
-

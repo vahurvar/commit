@@ -19,10 +19,10 @@ export default class Register extends Component {
 
     static navigationOptions = {
         title: 'Register',
-        headerTintColor: '#ff7978',
+        headerTintColor: '#051baa',
         headerStyle: { backgroundColor: '#fff' },
-        headerTitleStyle: { color: '#ff7978' },
-        headerBottomBorderColor: '#ff7978'
+        headerTitleStyle: { color: '#051baa' },
+        headerBottomBorderColor: '#051baa'
     }
 
     constructor(props) {
@@ -60,7 +60,7 @@ export default class Register extends Component {
 
                 <TextInput 
                     placeholder="Full Name..."
-                    placeholderTextColor="#ff7978"
+                    placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -69,7 +69,7 @@ export default class Register extends Component {
 
                 <TextInput 
                     placeholder="Email..."
-                    placeholderTextColor="#ff7978"
+                    placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -78,7 +78,7 @@ export default class Register extends Component {
 
                 <TextInput 
                     placeholder="Username..."
-                    placeholderTextColor="#ff7978"
+                    placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -87,7 +87,7 @@ export default class Register extends Component {
 
                 <TextInput 
                     placeholder="Password..."
-                    placeholderTextColor="#ff7978"
+                    placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -96,7 +96,7 @@ export default class Register extends Component {
 
                 <TextInput 
                     placeholder="Repeat Password..."
-                    placeholderTextColor="#ff7978"
+                    placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -121,7 +121,7 @@ export default class Register extends Component {
 
                 <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('HomePage')}>
                     <Text style={styles.buttonText}>
-                    Create Account
+                    CREATE ACCOUNT
                     </Text>
                 </TouchableOpacity>
 
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     },
 
     buttonContainer: {
-        backgroundColor: '#ff7978',
+        backgroundColor: '#051baa',
         borderRadius: 10,
         marginBottom: 30,
         marginTop: '40%',
@@ -174,8 +174,8 @@ const styles = StyleSheet.create({
         height: 40,
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#ff7978',
-        color: '#ff7978',
+        borderColor: '#051baa',
+        color: '#051baa',
         borderRadius: 10,
         width: '80%',
         marginTop: 20,
@@ -194,23 +194,23 @@ const styles = StyleSheet.create({
     maleButtonContainer: {
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#ff7978',
+        borderColor: '#051baa',
         borderRadius: 10,
         padding: 4,
         width: '20%%',
         marginLeft: 75
     },
     maleButtonPressed: {
-        backgroundColor: '#ff7978',
+        backgroundColor: '#051baa',
         borderWidth: 1,
-        borderColor: '#ff7978',
+        borderColor: '#051baa',
         borderRadius: 10,
         padding: 4,
         width: '20%%',
         marginLeft: 75
     },
     maleButtonText: {
-        color: '#ff7979',
+        color: '#051baa',
         fontSize: 20,
         textAlign: 'center'
     },
@@ -222,23 +222,23 @@ const styles = StyleSheet.create({
     femaleButtonContainer: {
         backgroundColor: '#fff',
         borderWidth: 1,
-        borderColor: '#ff7978',
+        borderColor: '#051baa',
         borderRadius: 10,
         padding: 4,
         width: '25%',
         marginRight: 75
     },
     femaleButtonPressed: {
-        backgroundColor: '#ff7978',
+        backgroundColor: '#051baa',
         borderWidth: 1,
-        borderColor: '#ff7978',
+        borderColor: '#051baa',
         borderRadius: 10,
         padding: 4,
         width: '25%',
         marginRight: 75
     },
     femaleButtonText: {
-        color: '#ff7978',
+        color: '#051baa',
         fontSize: 20,
         textAlign: 'center'
     },
