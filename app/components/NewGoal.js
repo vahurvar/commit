@@ -11,10 +11,12 @@ import {
     StyleSheet,
     TouchableOpacity,
     TextInput,
-    TouchableHighlight
+    Slider,
+    DatePickerIOS,
+    AsyncStorage
 } from 'react-native';
 
-
+import {NumberPicker} from 'react-native-numberpicker';
 
 export default class NewGoal extends Component {
 
@@ -28,26 +30,29 @@ export default class NewGoal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            gymButtonSelected: false,
-            runButtonSelected: false
+            title: '',
+            numberOfCommits: null,
+            period: null
         }
     }
 
-    gymPressed() {
-        if (this.state.gymButtonSelected) {
-            this.setState({ gymButtonSelected: false })
-        }
-        else {
-            this.setState({ gymButtonSelected: true })
-        }
+    addNewGoal() {
+        AsyncStorage.getItem("goals").then(goalList => {
+            goalList = (goalList === null) ? [] : JSON.parse(goalList)
+            let id = goalList.length + 1
+            goalList.push(this.getNewGoalObjectFromState(id))
+            AsyncStorage.setItem("goals", JSON.stringify(goalList))
+                .then(() => this.props.navigation.navigate('HomePage'))
+        })
     }
 
-    runPressed() {
-        if (this.state.runButtonSelected) {
-            this.setState({ runButtonSelected: false })
-        }
-        else {
-            this.setState({ runButtonSelected: true })
+    getNewGoalObjectFromState(id) {
+        return  {
+            goalId: id,
+            title: this.state.title,
+            startDay: new Date(),
+            numberOfCommits: this.state.numberOfCommits,
+            period: this.state.period
         }
     }
 
@@ -56,59 +61,39 @@ export default class NewGoal extends Component {
             <View style={styles.container}>
                 <View style={styles.formsContainer}>
 
-                    <TextInput 
-                    placeholder="Goal Title..."
+                    <Text style={styles.textAboveButton}>Goal title</Text>
+                    <TextInput
                     placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
-                    style={styles.input} 
+                    style={styles.input}
+                    onChangeText={title => this.setState({title})}
                     />
 
-                    <View style={styles.gymOrRunContainer}>
-
-                        <TouchableOpacity onPress={() => this.gymPressed()} style={this.state.gymButtonSelected ? styles.gymButtonPressed : styles.gymButtonContainer}>
-                            <Text onPress={() => this.gymPressed()} style={this.state.gymButtonSelected ? styles.gymTextPressed : styles.gymButtonText}>
-                            Gym
-                            </Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={() => this.runPressed()} style={this.state.runButtonSelected ? styles.runButtonPressed : styles.runButtonContainer}>
-                            <Text onPress={() => this.runPressed()} style={this.state.runButtonSelected ? styles.runTextPressed : styles.runButtonText}>
-                            Run
-                            </Text>
-                        </TouchableOpacity>
-
-                    </View>
-
-                    <TextInput 
-                    placeholder="Gym/Run Goal..."
-                    placeholderTextColor="#a9a9a9"
-                    returnKeyType="next"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={styles.input} 
+                    <Text style={styles.textAboveButton}>How long is your goal? (in days)</Text>
+                    <Slider
+                        style={styles.slider}
+                        minimumValue={1}
+                        maximumValue={90}
+                        step={1}
+                        value={this.state.period}
+                        onValueChange={period => this.setState({period})}
                     />
+                    <Text style={styles.sliderText}>{this.state.period}</Text>
 
-                    <TextInput 
-                    placeholder="Start Date..."
-                    placeholderTextColor="#a9a9a9"
-                    returnKeyType="next"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={styles.input} 
+                    <Text style={styles.textAboveButton}>How many days would you like to go to the gym in that period?</Text>
+                    <Slider
+                        style={{ width: 300 }}
+                        minimumValue={10}
+                        maximumValue={this.state.period}
+                        step={1}
+                        value={this.state.numberOfCommits}
+                        onValueChange={numberOfCommits => this.setState({numberOfCommits})}
                     />
+                    <Text style={styles.sliderText}>{this.state.numberOfCommits}</Text>
 
-                    <TextInput 
-                    placeholder="End Date..."
-                    placeholderTextColor="#a9a9a9"
-                    returnKeyType="next"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={styles.input} 
-                    />
-
-                    <TouchableOpacity style={styles.addNewGoalButton} onPress={() => this.props.navigation.navigate('HomePage')}>
+                    <TouchableOpacity style={styles.addNewGoalButton} onPress={() => this.addNewGoal()}>
                         <Text style={styles.addNewGoalText}>Add New Goal</Text>
                     </TouchableOpacity>
 
@@ -132,62 +117,7 @@ const styles = StyleSheet.create({
         color: '#051baa',
         fontSize: 15,
         width: 200,
-        textAlign: 'center'
-    },
-    gymButtonContainer: {
-        backgroundColor: '#fff',
-        borderWidth: 1,
-        borderColor: '#051baa',
-        borderRadius: 10,
-        padding: 4,
-        width: '20%%',
-        marginLeft: 80
-    },
-    gymButtonPressed: {
-        backgroundColor: '#051baa',
-        borderWidth: 1,
-        borderColor: '#051baa',
-        borderRadius: 10,
-        padding: 4,
-        width: '20%%',
-        marginLeft: 80
-    },
-    gymButtonText: {
-        color: '#051baa',
-        fontSize: 20,
-        textAlign: 'center'
-    },
-    gymTextPressed: {
-        color: '#fff',
-        fontSize: 20,
-        textAlign: 'center'
-    },
-    runButtonContainer: {
-        backgroundColor: '#fff',
-        borderWidth: 1,
-        borderColor: '#051baa',
-        borderRadius: 10,
-        padding: 4,
-        width: '20%%',
-        marginRight: 80
-    },
-    runButtonPressed: {
-        backgroundColor: '#051baa',
-        borderWidth: 1,
-        borderColor: '#051baa',
-        borderRadius: 10,
-        padding: 4,
-        width: '20%%',
-        marginRight: 80
-    },
-    runButtonText: {
-        color: '#051baa',
-        fontSize: 20,
-        textAlign: 'center'
-    },
-    runTextPressed: {
-        color: '#fff',
-        fontSize: 20,
+        marginTop: 25,
         textAlign: 'center'
     },
     input: {
@@ -199,31 +129,34 @@ const styles = StyleSheet.create({
         color: '#051baa',
         borderRadius: 10,
         paddingHorizontal: 10,
-        marginTop: 25
-    },
-    gymOrRunContainer: {
-        height: 50,
-        borderRadius: 10,
-        width: '80%',
-        backgroundColor: '#fff',
-        borderColor: '#051baa',
-        marginTop: 25,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexDirection: 'row'
+        marginBottom: 20,
+        marginTop: 10
     },
     addNewGoalButton: {
         backgroundColor: '#051baa',
         borderRadius: 10,
         padding: 10,
-        marginTop: '50%',
+        marginTop: '35%',
         width: '80%'
     },
     addNewGoalText: {
         color: '#fff',
         fontSize: 20,
         textAlign: 'center'
+    },
+    slider: {
+        width: 300,
+    },
+    sliderText: {
+        color: '#051baa',
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10
     }
 
-    
+
 });
+
+
+
+
