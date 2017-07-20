@@ -12,6 +12,7 @@ import {
     TouchableOpacity,
     TextInput,
     Slider,
+    DatePickerIOS,
     AsyncStorage
 } from 'react-native';
 
@@ -30,7 +31,6 @@ export default class NewGoal extends Component {
         super(props);
         this.state = {
             title: '',
-            startDay: '',
             numberOfCommits: null,
             period: null
         }
@@ -50,7 +50,7 @@ export default class NewGoal extends Component {
         return  {
             goalId: id,
             title: this.state.title,
-            startDay: this.state.startDay,
+            startDay: new Date(),
             numberOfCommits: this.state.numberOfCommits,
             period: this.state.period
         }
@@ -61,24 +61,14 @@ export default class NewGoal extends Component {
             <View style={styles.container}>
                 <View style={styles.formsContainer}>
 
-                    <TextInput 
-                    placeholder="Goal Title..."
+                    <Text style={styles.textAboveButton}>Goal title</Text>
+                    <TextInput
                     placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
                     style={styles.input}
                     onChangeText={title => this.setState({title})}
-                    />
-
-                    <TextInput 
-                    placeholder="Start day..."
-                    placeholderTextColor="#a9a9a9"
-                    returnKeyType="next"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={styles.input}
-                    onChangeText={startDay => this.setState({startDay})}
                     />
 
                     <Text style={styles.textAboveButton}>How long you want to commit to?</Text>
@@ -145,7 +135,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#051baa',
         borderRadius: 10,
         padding: 10,
-        marginTop: '30%',
+        marginTop: '50%',
         width: '80%'
     },
     addNewGoalText: {
