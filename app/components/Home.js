@@ -10,7 +10,7 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    Image
+    AsyncStorage
 } from 'react-native';
 
 
@@ -22,6 +22,13 @@ export default class Home extends Component {
         headerTintColor: '#fff',
         headerStyle: { backgroundColor: '#051baa' },
         headerTitleStyle: { color: '#fff' }
+    }
+
+    componentDidMount() {
+        AsyncStorage.getItem("goals")
+            .then(value => {
+                console.log(value)
+            })
     }
 
     render() {
@@ -37,6 +44,7 @@ export default class Home extends Component {
                     <TouchableOpacity style={styles.newOathButtonContainer} onPress={() => this.props.navigation.navigate('CheckinPage')}>
                         <Text style={styles.newOathButtonText}>Check-in</Text>
                     </TouchableOpacity>
+
 
                 </View>
             </View>

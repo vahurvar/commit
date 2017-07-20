@@ -11,10 +11,11 @@ import {
     StyleSheet,
     TouchableOpacity,
     TextInput,
-    TouchableHighlight
+    Slider,
+    AsyncStorage
 } from 'react-native';
 
-
+import {NumberPicker} from 'react-native-numberpicker';
 
 export default class NewGoal extends Component {
 
@@ -28,26 +29,30 @@ export default class NewGoal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            gymButtonSelected: false,
-            runButtonSelected: false
+            title: '',
+            startDay: '',
+            numberOfCommits: null,
+            period: null
         }
     }
 
-    gymPressed() {
-        if (this.state.gymButtonSelected) {
-            this.setState({ gymButtonSelected: false })
-        }
-        else {
-            this.setState({ gymButtonSelected: true })
-        }
+    addNewGoal() {
+        AsyncStorage.getItem("goals").then(goalList => {
+            goalList = (goalList === null) ? [] : JSON.parse(goalList)
+            let id = goalList.length + 1
+            goalList.push(this.getNewGoalObjectFromState(id))
+            AsyncStorage.setItem("goals", JSON.stringify(goalList))
+                .then(() => this.props.navigation.navigate('HomePage'))
+        })
     }
 
-    runPressed() {
-        if (this.state.runButtonSelected) {
-            this.setState({ runButtonSelected: false })
-        }
-        else {
-            this.setState({ runButtonSelected: true })
+    getNewGoalObjectFromState(id) {
+        return  {
+            goalId: id,
+            title: this.state.title,
+            startDay: this.state.startDay,
+            numberOfCommits: this.state.numberOfCommits,
+            period: this.state.period
         }
     }
 
@@ -62,53 +67,43 @@ export default class NewGoal extends Component {
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
-                    style={styles.input} 
+                    style={styles.input}
+                    onChangeText={title => this.setState({title})}
                     />
 
-                    <View style={styles.gymOrRunContainer}>
-
-                        <TouchableOpacity onPress={() => this.gymPressed()} style={this.state.gymButtonSelected ? styles.gymButtonPressed : styles.gymButtonContainer}>
-                            <Text onPress={() => this.gymPressed()} style={this.state.gymButtonSelected ? styles.gymTextPressed : styles.gymButtonText}>
-                            Gym
-                            </Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={() => this.runPressed()} style={this.state.runButtonSelected ? styles.runButtonPressed : styles.runButtonContainer}>
-                            <Text onPress={() => this.runPressed()} style={this.state.runButtonSelected ? styles.runTextPressed : styles.runButtonText}>
-                            Run
-                            </Text>
-                        </TouchableOpacity>
-
-                    </View>
-
                     <TextInput 
-                    placeholder="Gym/Run Goal..."
+                    placeholder="Start day..."
                     placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
-                    style={styles.input} 
+                    style={styles.input}
+                    onChangeText={startDay => this.setState({startDay})}
                     />
 
-                    <TextInput 
-                    placeholder="Start Date..."
-                    placeholderTextColor="#a9a9a9"
-                    returnKeyType="next"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={styles.input} 
+                    <Text style={styles.textAboveButton}>How long you want to commit to?</Text>
+                    <Slider
+                        style={{ width: 300 }}
+                        minimumValue={30}
+                        maximumValue={180}
+                        step={5}
+                        value={this.state.period}
+                        onValueChange={period => this.setState({period})}
                     />
+                    <Text>{this.state.period}</Text>
 
-                    <TextInput 
-                    placeholder="End Date..."
-                    placeholderTextColor="#a9a9a9"
-                    returnKeyType="next"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={styles.input} 
+                    <Text style={styles.textAboveButton}>How many times of gym during that period</Text>
+                    <Slider
+                        style={{ width: 300 }}
+                        minimumValue={10}
+                        maximumValue={this.state.period}
+                        step={1}
+                        value={this.state.numberOfCommits}
+                        onValueChange={numberOfCommits => this.setState({numberOfCommits})}
                     />
+                    <Text>{this.state.numberOfCommits}</Text>
 
-                    <TouchableOpacity style={styles.addNewGoalButton} onPress={() => this.props.navigation.navigate('HomePage')}>
+                    <TouchableOpacity style={styles.addNewGoalButton} onPress={() => this.addNewGoal()}>
                         <Text style={styles.addNewGoalText}>Add New Goal</Text>
                     </TouchableOpacity>
 
@@ -132,62 +127,7 @@ const styles = StyleSheet.create({
         color: '#051baa',
         fontSize: 15,
         width: 200,
-        textAlign: 'center'
-    },
-    gymButtonContainer: {
-        backgroundColor: '#fff',
-        borderWidth: 1,
-        borderColor: '#051baa',
-        borderRadius: 10,
-        padding: 4,
-        width: '20%%',
-        marginLeft: 80
-    },
-    gymButtonPressed: {
-        backgroundColor: '#051baa',
-        borderWidth: 1,
-        borderColor: '#051baa',
-        borderRadius: 10,
-        padding: 4,
-        width: '20%%',
-        marginLeft: 80
-    },
-    gymButtonText: {
-        color: '#051baa',
-        fontSize: 20,
-        textAlign: 'center'
-    },
-    gymTextPressed: {
-        color: '#fff',
-        fontSize: 20,
-        textAlign: 'center'
-    },
-    runButtonContainer: {
-        backgroundColor: '#fff',
-        borderWidth: 1,
-        borderColor: '#051baa',
-        borderRadius: 10,
-        padding: 4,
-        width: '20%%',
-        marginRight: 80
-    },
-    runButtonPressed: {
-        backgroundColor: '#051baa',
-        borderWidth: 1,
-        borderColor: '#051baa',
-        borderRadius: 10,
-        padding: 4,
-        width: '20%%',
-        marginRight: 80
-    },
-    runButtonText: {
-        color: '#051baa',
-        fontSize: 20,
-        textAlign: 'center'
-    },
-    runTextPressed: {
-        color: '#fff',
-        fontSize: 20,
+        marginTop: 15,
         textAlign: 'center'
     },
     input: {
@@ -201,22 +141,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginTop: 25
     },
-    gymOrRunContainer: {
-        height: 50,
-        borderRadius: 10,
-        width: '80%',
-        backgroundColor: '#fff',
-        borderColor: '#051baa',
-        marginTop: 25,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexDirection: 'row'
-    },
     addNewGoalButton: {
         backgroundColor: '#051baa',
         borderRadius: 10,
         padding: 10,
-        marginTop: '50%',
+        marginTop: '30%',
         width: '80%'
     },
     addNewGoalText: {
@@ -224,6 +153,4 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center'
     }
-
-    
 });
