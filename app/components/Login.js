@@ -1,80 +1,64 @@
 /* @flow */
 'use strict';
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 
 import {
-    View,
-    Text,
-    StyleSheet,
+    AsyncStorage,
     Image,
     KeyboardAvoidingView,
+    StyleSheet,
+    Text,
+    TextInput,
     TouchableOpacity,
-    AsyncStorage,
-    TextInput
+    View
 } from 'react-native';
-
-import LoginForm from "./LoginForm.js"
 
 export default class Login extends Component {
 
     static navigationOptions = {
         title: 'Login',
         headerTintColor: '#fff',
-        headerStyle: { backgroundColor: '#fff' },
-        headerTitleStyle: { color: '#fff' }
-    }
+        headerStyle: {backgroundColor: '#fff'},
+        headerTitleStyle: {color: '#fff'}
+    };
 
     componentWillMount() {
-        AsyncStorage.getItem('email').then((value) => {
-        this.setState({ asyncEmail: value })
-    }).done()
-
-    AsyncStorage.getItem('password').then((value) => {
-        this.setState({ asyncPassword: value })
-    }).done()
+        this.getUser().then(user => {
+            if (user === null) {
+                this.setState({hasUser: false});
+            } else {
+                this.setState({hasUser: true});
+                this.props.navigation.navigate('HomePage');
+            }
+        })
     }
 
     constructor(props) {
         super(props);
         this.state = {
-            asyncEmail: '',
-            asyncPassword: '',
             email: '',
-            password: ''
+            password: '',
+            user: {
+                email: '',
+                password: ''
+            },
+            hasUser: false
         }
     }
 
     login() {
-        this.getUser()
-
-        if (this.state.asyncEmail == this.state.email && this.state.asyncPassword == this.state.password) {
-            this.props.navigation.navigate('HomePage')
-        }
-        else {
+        if (this.state.user.email === this.state.email && this.state.user.password === this.state.password) {
+            this.props.navigation.navigate('HomePage');
+        } else {
             alert("The email or password you entered was incorrect.")
         }
-
     }
 
-    getUser() {
-
-    AsyncStorage.getItem('email').then((value) => {
-        this.setState({ asyncEmail: value })
-    }).done()
-
-    AsyncStorage.getItem('password').then((value) => {
-        this.setState({ asyncPassword: value })
-    }).done()
-
+    async getUser() {
+        let userString = await AsyncStorage.getItem('user');
+        return JSON.parse(userString);
     }
-
-    getUserEmail() {
-    }
-
-
 
     render() {
         return (
@@ -83,58 +67,53 @@ export default class Login extends Component {
 
                     <Text style={styles.title}>commit</Text>
 
-                    <Image 
-                    style={styles.logo} 
-                    source={require('./img/commitlogo.png')}
+                    <Image
+                        style={styles.logo}
+                        source={require('./img/commitlogo.png')}
                     />
-
                 </View>
 
                 <View style={styles.formContainer}>
-
-                    <TextInput 
-                    placeholder="Email"
-                    placeholderTextColor="#a9a9a9"
-                    returnKeyType="next"
-                    onSubmitEditing={() => this.passwordInput.focus()}
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={styles.input}
-                    onChangeText={email => this.setState({email})}
+                    <TextInput
+                        placeholder="Email"
+                        placeholderTextColor="#a9a9a9"
+                        returnKeyType="next"
+                        onSubmitEditing={() => this.passwordInput.focus()}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        style={styles.input}
+                        onChangeText={email => this.setState({email})}
                     />
 
                     <TextInput
-                    placeholder="Password..."
-                    placeholderTextColor="#a9a9a9"
-                    returnKeyType="go"
-                    ref={(input) => this.passwordInput = input}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={styles.input}
-                    onChangeText={password => this.setState({password})}
+                        placeholder="Password..."
+                        placeholderTextColor="#a9a9a9"
+                        returnKeyType="go"
+                        ref={(input) => this.passwordInput = input}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        style={styles.input}
+                        secureTextEntry={true}
+                        onChangeText={password => this.setState({password})}
                     />
-
                 </View>
-
 
                 <TouchableOpacity style={styles.buttonContainer} onPress={() => this.login()}>
                     <Text style={styles.buttonText}>
-                    LOGIN
+                        LOGIN
                     </Text>
                 </TouchableOpacity>
 
 
                 <View style={styles.noAccountContainer}>
-                    <Text style={styles.noAccountText} onPress={() => this.props.navigation.navigate('RegisterPage')}>Don't have an account? Click here to make one!</Text>
+                    <Text style={styles.noAccountText} onPress={() => this.props.navigation.navigate('RegisterPage')}>Don't
+                        have an account? Click here to make one!</Text>
                 </View>
             </KeyboardAvoidingView>
         );
     }
 }
-
-
-
 
 const styles = StyleSheet.create({
     container: {
@@ -205,7 +184,6 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         width: '80%',
         paddingHorizontal: 10
-    },
-
+    }
 });
 

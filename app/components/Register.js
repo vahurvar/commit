@@ -55,33 +55,29 @@ export default class Register extends Component {
         }
     }
 
-    
-
     newAccount() {
-        AsyncStorage.setItem('email', this.state.emailInput)
-        AsyncStorage.setItem('password', this.state.passwordInput)
-        AsyncStorage.setItem('age', this.state.age)
-        AsyncStorage.setItem('gender', this.state.gender)
-        this.loginUser()
-        this.success()
+        AsyncStorage.setItem('user', JSON.stringify(this.getUser()))
+            .then(() => this.loginUser())
     }
-    setUser() {
 
+    getUser() {
+        return {
+            'email': this.state.emailInput,
+            'password': this.state.passwordInput,
+            'age': this.state.age,
+            'gender': this.state.gender
+        }
     }
+
     loginUser() {
         this.props.navigation.navigate('LoginPage')
+        alert("You're account has been made, now you can login!")
     }
-    success() {
-         alert("You're account has been made, now you can login!")
-    }
-
-
 
     render() {
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
                 <View style={styles.pageContainer}>
-
                 <TextInput 
                     placeholder="Email..."
                     placeholderTextColor="#a9a9a9"
@@ -113,10 +109,7 @@ export default class Register extends Component {
                     onChangeText={age => this.setState({age})}
                 />
 
-                
-
                 <View style={styles.mOrFContainer}>
-
                         <TouchableOpacity onPress={() => this.malePressed()} style={this.state.maleButtonSelected ? styles.maleButtonPressed : styles.maleButtonContainer}>
                             <Text onPress={() => this.malePressed()} style={this.state.maleButtonSelected ? styles.maleTextPressed : styles.maleButtonText}>
                             Male
@@ -128,7 +121,6 @@ export default class Register extends Component {
                             Female
                             </Text>
                         </TouchableOpacity>
-
                 </View>
 
                 <TouchableOpacity style={styles.buttonContainer} onPress={() => this.newAccount()}>
@@ -136,9 +128,7 @@ export default class Register extends Component {
                     CREATE ACCOUNT
                     </Text>
                 </TouchableOpacity>
-
                 </View>
-
             </KeyboardAvoidingView>
         );
     }
@@ -258,8 +248,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 20,
         textAlign: 'center'
-    },
-
+    }
 });
 
 
