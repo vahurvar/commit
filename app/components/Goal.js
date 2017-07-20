@@ -20,20 +20,18 @@ export default class Home extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-
                 <TouchableOpacity style={styles.goalCard}>
                     <View style={styles.leftTextContainer}>
                         <View style={styles.leftTopTextContainer}>
-                            <Text style={styles.goalTitleText}>Goal: Go to Gym</Text>
+                            <Text style={styles.goalTitleText}>{this.state.goalTitle}</Text>
                         </View>
 
                         <View style={styles.leftMiddleTextContainer}>
-                            <Text style={styles.countdownText}>6 days left</Text>
+                            <Text style={styles.countdownText}>{this.state.goalPeriod} days left</Text>
                         </View>
 
                         <View style={styles.leftBottomTextContainer}>
-                            <Text style={styles.checkinsLeftText}>4/5 check-ins completed!</Text>
+                            <Text style={styles.checkinsLeftText}>{this.state.numOfCheckins} check-ins remaining!</Text>
                         </View>
                     </View>
 
@@ -41,14 +39,12 @@ export default class Home extends Component {
                         <Text style={styles.moneyText}>$40</Text>
                     </View>
                 </TouchableOpacity>
-
-            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
+    goalContainer: {
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',

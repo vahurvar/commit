@@ -13,7 +13,8 @@ import {
     KeyboardAvoidingView,
     TouchableOpacity,
     AsyncStorage,
-    TextInput
+    TextInput,
+    StatusBar
 } from 'react-native';
 
 import LoginForm from "./LoginForm.js"
@@ -79,6 +80,7 @@ export default class Login extends Component {
     render() {
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
+                <StatusBar barStyle="dark-content" />
                 <View style={styles.logoContainer}>
 
                     <Text style={styles.title}>commit</Text>

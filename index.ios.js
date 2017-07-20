@@ -43,7 +43,7 @@ const App = StackNavigator({
 export default class fitbet extends Component {
   render() {
     return (
-    	<Goal/>
+    	<App/>
     	);
   }
 }
