@@ -71,18 +71,18 @@ export default class NewGoal extends Component {
                     onChangeText={title => this.setState({title})}
                     />
 
-                    <Text style={styles.textAboveButton}>How long you want to commit to?</Text>
+                    <Text style={styles.textAboveButton}>How long is your goal? (in days)</Text>
                     <Slider
-                        style={{ width: 300 }}
-                        minimumValue={30}
-                        maximumValue={180}
-                        step={5}
+                        style={styles.slider}
+                        minimumValue={1}
+                        maximumValue={90}
+                        step={1}
                         value={this.state.period}
                         onValueChange={period => this.setState({period})}
                     />
-                    <Text>{this.state.period}</Text>
+                    <Text style={styles.sliderText}>{this.state.period}</Text>
 
-                    <Text style={styles.textAboveButton}>How many times of gym during that period</Text>
+                    <Text style={styles.textAboveButton}>How many days would you like to go to the gym in that period?</Text>
                     <Slider
                         style={{ width: 300 }}
                         minimumValue={10}
@@ -91,7 +91,7 @@ export default class NewGoal extends Component {
                         value={this.state.numberOfCommits}
                         onValueChange={numberOfCommits => this.setState({numberOfCommits})}
                     />
-                    <Text>{this.state.numberOfCommits}</Text>
+                    <Text style={styles.sliderText}>{this.state.numberOfCommits}</Text>
 
                     <TouchableOpacity style={styles.addNewGoalButton} onPress={() => this.addNewGoal()}>
                         <Text style={styles.addNewGoalText}>Add New Goal</Text>
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
         color: '#051baa',
         fontSize: 15,
         width: 200,
-        marginTop: 15,
+        marginTop: 25,
         textAlign: 'center'
     },
     input: {
@@ -129,18 +129,34 @@ const styles = StyleSheet.create({
         color: '#051baa',
         borderRadius: 10,
         paddingHorizontal: 10,
-        marginTop: 25
+        marginBottom: 20,
+        marginTop: 10
     },
     addNewGoalButton: {
         backgroundColor: '#051baa',
         borderRadius: 10,
         padding: 10,
-        marginTop: '50%',
+        marginTop: '35%',
         width: '80%'
     },
     addNewGoalText: {
         color: '#fff',
         fontSize: 20,
         textAlign: 'center'
+    },
+    slider: {
+        width: 300,
+    },
+    sliderText: {
+        color: '#051baa',
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10
     }
+
+
 });
+
+
+
+
