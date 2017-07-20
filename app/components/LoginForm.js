@@ -10,10 +10,18 @@ import {
     Text,
     StyleSheet,
     TextInput,
-    StatusBar
+    StatusBar,
 } from 'react-native';
 
 export default class LoginForm extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: ''
+        }
+    }
 
     render() {
         return (
@@ -31,7 +39,8 @@ export default class LoginForm extends Component {
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
-                style={styles.input} 
+                style={styles.input}
+                onChangeText={email => this.setState({email})}
                 />
 
                 <TextInput
@@ -42,6 +51,7 @@ export default class LoginForm extends Component {
                 autoCapitalize="none"
                 autoCorrect={false}
                 style={styles.input}
+                onChangeText={password => this.setState({password})}
                 />
 
             </View>

@@ -11,7 +11,9 @@ import {
     StyleSheet,
     Image,
     KeyboardAvoidingView,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage,
+    TextInput
 } from 'react-native';
 
 import LoginForm from "./LoginForm.js"
@@ -23,6 +25,53 @@ export default class Login extends Component {
         headerTintColor: '#fff',
         headerStyle: { backgroundColor: '#fff' },
         headerTitleStyle: { color: '#fff' }
+    }
+
+    componentWillMount() {
+        AsyncStorage.getItem('email').then((value) => {
+        this.setState({ asyncEmail: value })
+    }).done()
+
+    AsyncStorage.getItem('password').then((value) => {
+        this.setState({ asyncPassword: value })
+    }).done()
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            asyncEmail: '',
+            asyncPassword: '',
+            email: '',
+            password: ''
+        }
+    }
+
+    login() {
+        this.getUser()
+
+        if (this.state.asyncEmail == this.state.email && this.state.asyncPassword == this.state.password) {
+            this.props.navigation.navigate('HomePage')
+        }
+        else {
+            alert("The email or password you entered was incorrect.")
+        }
+
+    }
+
+    getUser() {
+
+    AsyncStorage.getItem('email').then((value) => {
+        this.setState({ asyncEmail: value })
+    }).done()
+
+    AsyncStorage.getItem('password').then((value) => {
+        this.setState({ asyncPassword: value })
+    }).done()
+
+    }
+
+    getUserEmail() {
     }
 
 
@@ -40,11 +89,36 @@ export default class Login extends Component {
                     />
 
                 </View>
-                <View style={styles.form}>
-                    <LoginForm />
+
+                <View style={styles.formContainer}>
+
+                    <TextInput 
+                    placeholder="Email"
+                    placeholderTextColor="#a9a9a9"
+                    returnKeyType="next"
+                    onSubmitEditing={() => this.passwordInput.focus()}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    style={styles.input}
+                    onChangeText={email => this.setState({email})}
+                    />
+
+                    <TextInput
+                    placeholder="Password..."
+                    placeholderTextColor="#a9a9a9"
+                    returnKeyType="go"
+                    ref={(input) => this.passwordInput = input}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    style={styles.input}
+                    onChangeText={password => this.setState({password})}
+                    />
+
                 </View>
 
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('HomePage')}>
+
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => this.login()}>
                     <Text style={styles.buttonText}>
                     LOGIN
                     </Text>
@@ -114,6 +188,24 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         color: '#fff'
-    }
+    },
+
+    formContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 5,
+    },
+    input: {
+        height: 40,
+        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderColor: '#051baa',
+        color: '#051baa',
+        borderRadius: 10,
+        marginBottom: 12,
+        width: '80%',
+        paddingHorizontal: 10
+    },
+
 });
 

@@ -12,7 +12,9 @@ import {
     Image,
     KeyboardAvoidingView,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    AsyncStorage,
+    Picker
 } from 'react-native';
 
 export default class Register extends Component {
@@ -29,26 +31,48 @@ export default class Register extends Component {
         super(props);
         this.state = {
             maleButtonSelected: false,
-            femaleButtonSelected: false
+            femaleButtonSelected: false,
+            emailInput: '',
+            passwordInput: '',
+            gender: '',
+            age: '',
         }
     }
 
     malePressed() {
-        if (this.state.maleButtonSelected) {
-            this.setState({ maleButtonSelected: false })
-        }
-        else {
+        if (!this.state.maleButtonSelected) {
             this.setState({ maleButtonSelected: true })
+            this.setState({ femaleButtonSelected: false })
+            this.setState({ gender: 'male' })
         }
     }
 
     femalePressed() {
-        if (this.state.femaleButtonSelected) {
-            this.setState({ femaleButtonSelected: false })
-        }
-        else {
+        if (!this.state.femaleButtonSelected) {
             this.setState({ femaleButtonSelected: true })
+            this.setState({ maleButtonSelected: false })
+            this.setState({ gender: 'female' })
         }
+    }
+
+    
+
+    newAccount() {
+        AsyncStorage.setItem('email', this.state.emailInput)
+        AsyncStorage.setItem('password', this.state.passwordInput)
+        AsyncStorage.setItem('age', this.state.age)
+        AsyncStorage.setItem('gender', this.state.gender)
+        this.loginUser()
+        this.success()
+    }
+    setUser() {
+
+    }
+    loginUser() {
+        this.props.navigation.navigate('LoginPage')
+    }
+    success() {
+         alert("You're account has been made, now you can login!")
     }
 
 
@@ -59,30 +83,14 @@ export default class Register extends Component {
                 <View style={styles.pageContainer}>
 
                 <TextInput 
-                    placeholder="Full Name..."
-                    placeholderTextColor="#a9a9a9"
-                    returnKeyType="next"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={styles.input} 
-                />
-
-                <TextInput 
                     placeholder="Email..."
                     placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
-                    autoCapitalize="none"
+                    autoCapitalize="none" 
                     autoCorrect={false}
-                    style={styles.input} 
-                />
-
-                <TextInput 
-                    placeholder="Username..."
-                    placeholderTextColor="#a9a9a9"
-                    returnKeyType="next"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={styles.input} 
+                    style={styles.input}
+                    onChangeText={emailInput => this.setState({emailInput})}
+                     
                 />
 
                 <TextInput 
@@ -92,16 +100,20 @@ export default class Register extends Component {
                     autoCapitalize="none"
                     autoCorrect={false}
                     style={styles.input} 
+                    onChangeText={passwordInput => this.setState({passwordInput})}
                 />
 
                 <TextInput 
-                    placeholder="Repeat Password..."
+                    placeholder="Age..."
                     placeholderTextColor="#a9a9a9"
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
                     style={styles.input} 
+                    onChangeText={age => this.setState({age})}
                 />
+
+                
 
                 <View style={styles.mOrFContainer}>
 
@@ -119,7 +131,7 @@ export default class Register extends Component {
 
                 </View>
 
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('HomePage')}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => this.newAccount()}>
                     <Text style={styles.buttonText}>
                     CREATE ACCOUNT
                     </Text>
