@@ -14,6 +14,8 @@ import {
     View
 } from 'react-native';
 
+import {Validate} from 'react-custom-validation';
+
 export default class Login extends Component {
 
     static navigationOptions = {
@@ -48,11 +50,24 @@ export default class Login extends Component {
     }
 
     login() {
-        if (this.state.user.email === this.state.email && this.state.user.password === this.state.password) {
+        if (this.areInputsFilled()) {
+            alert("Please fill in email and password");
+            return;
+        }
+        if (this.checkCredentials()) {
             this.props.navigation.navigate('HomePage');
         } else {
             alert("The email or password you entered was incorrect.")
         }
+    }
+
+    //TODO: Verify details against server-side API
+    checkCredentials() {
+        return this.state.user.email === this.state.email && this.state.user.password === this.state.password;
+    }
+
+    areInputsFilled() {
+        return this.state.user.email.length === 0 || this.state.user.password === 0;
     }
 
     async getUser() {
