@@ -1,6 +1,12 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+
 import React, { Component } from 'react';
 import {
-	AppRegistry
+  AppRegistry
 } from 'react-native';
 
 import {
@@ -36,7 +42,9 @@ const App = StackNavigator({
 
 export default class fitbet extends Component {
   render() {
-    return (<App/>);
+    return (
+    	<App/>
+    	);
   }
 }
 

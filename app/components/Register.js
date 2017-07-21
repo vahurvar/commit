@@ -14,7 +14,8 @@ import {
     TouchableOpacity,
     TextInput,
     AsyncStorage,
-    Picker
+    Picker,
+    StatusBar
 } from 'react-native';
 
 export default class Register extends Component {
@@ -77,6 +78,7 @@ export default class Register extends Component {
     render() {
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
+                <StatusBar barStyle="dark-content" />
                 <View style={styles.pageContainer}>
                 <TextInput 
                     placeholder="Email..."

@@ -32,7 +32,8 @@ export default class NewGoal extends Component {
         this.state = {
             title: '',
             numberOfCommits: null,
-            period: null
+            period: null,
+            money: null
         }
     }
 
@@ -52,7 +53,8 @@ export default class NewGoal extends Component {
             title: this.state.title,
             startDay: new Date(),
             numberOfCommits: this.state.numberOfCommits,
-            period: this.state.period
+            period: this.state.period,
+            money: this.state.money
         }
     }
 
@@ -92,6 +94,16 @@ export default class NewGoal extends Component {
                         onValueChange={numberOfCommits => this.setState({numberOfCommits})}
                     />
                     <Text style={styles.sliderText}>{this.state.numberOfCommits}</Text>
+
+                    <Text style={styles.textAboveButton}>Money to commit</Text>
+                    <TextInput
+                    placeholderTextColor="#a9a9a9"
+                    returnKeyType="next"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    style={styles.input}
+                    onChangeText={money => this.setState({money})}
+                    />
 
                     <TouchableOpacity style={styles.addNewGoalButton} onPress={() => this.addNewGoal()}>
                         <Text style={styles.addNewGoalText}>Add New Goal</Text>
@@ -136,7 +148,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#051baa',
         borderRadius: 10,
         padding: 10,
-        marginTop: '35%',
+        marginTop: '5%',
         width: '80%'
     },
     addNewGoalText: {

@@ -11,7 +11,8 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    View
+    AsyncStorage,
+    TextInput
 } from 'react-native';
 
 import {Validate} from 'react-custom-validation';
@@ -78,6 +79,7 @@ export default class Login extends Component {
     render() {
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
+                <StatusBar barStyle="dark-content" />
                 <View style={styles.logoContainer}>
 
                     <Text style={styles.title}>commit</Text>
