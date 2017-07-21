@@ -11,7 +11,7 @@ import {
     StyleSheet,
     TouchableOpacity,
     AsyncStorage,
-    StatusBar
+    StatusBar,
 } from 'react-native';
 
 import Goal from './Goal.js'
@@ -24,7 +24,7 @@ export default class Home extends Component {
         title: 'Home',
         headerTintColor: '#fff',
         headerStyle: { backgroundColor: '#051baa' },
-        headerTitleStyle: { color: '#fff' }
+        headerTitleStyle: { color: '#fff' },
     }
 
     constructor(props) {
@@ -35,10 +35,12 @@ export default class Home extends Component {
             startDate: '',
             numOfCheckins: null,
             goalPeriod: null,
+            goalMoney: null,
             goalTitle2: '',
             startDate2: '',
             numOfCheckins2: null,
-            goalPeriod2: null
+            goalPeriod2: null,
+            goalMoney2: null
         }
     }
 
@@ -70,6 +72,7 @@ export default class Home extends Component {
                         this.setState({ startDate : goalObject[i].startDay})
                         this.setState({ numOfCheckins : goalObject[i].numberOfCommits})
                         this.setState({ goalPeriod : goalObject[i].period})
+                        this.setState({ goalMoney : goalObject[i].money})
     
 
                     });
@@ -88,6 +91,7 @@ export default class Home extends Component {
                         this.setState({ startDate2 : goalObject[i].startDay})
                         this.setState({ numOfCheckins2 : goalObject[i].numberOfCommits})
                         this.setState({ goalPeriod2 : goalObject[i].period})
+                        this.setState({ goalMoney2 : goalObject[i].money})
     
 
                     });
@@ -110,8 +114,8 @@ export default class Home extends Component {
 
 
 
-            view = <View style={styles.goalContainer}>
-
+            view =
+                    <View style={styles.goalContainer}>
                     <TouchableOpacity style={styles.goalCard} onPress={() => this.props.navigation.navigate('CheckinPage')}>
                         <View style={styles.leftTextContainer}>
                             <View style={styles.leftTopTextContainer}>
@@ -128,7 +132,7 @@ export default class Home extends Component {
                         </View>
 
                         <View style={styles.rightTextContainer}>
-                            <Text style={styles.moneyText}>$5</Text>
+                            <Text style={styles.moneyText}>${this.state.goalMoney}</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -148,11 +152,17 @@ export default class Home extends Component {
                         </View>
 
                         <View style={styles.rightTextContainer}>
-                            <Text style={styles.moneyText}>$40</Text>
+                            <Text style={styles.moneyText}>${this.state.goalMoney2}</Text>
                         </View>
                     </TouchableOpacity>
 
-                   </View>
+                    <TouchableOpacity style={styles.newGoalContainer} onPress={() => this.props.navigation.navigate('NewGoalPage')}>
+                            <Text style={styles.newGoalText}>New Goal</Text>
+                        </TouchableOpacity>
+
+
+                    </View>
+
 
         }
 
@@ -223,7 +233,6 @@ const styles = StyleSheet.create({
 
 
     goalContainer: {
-        flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'flex-start'
@@ -234,7 +243,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#fff',
         shadowColor: '#a9a9a9',
-        shadowOffset: { width: 0, height: 1.5 },
+        shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 1,
         shadowRadius: 2,
         flexDirection: 'row',
@@ -280,7 +289,7 @@ const styles = StyleSheet.create({
     },
     moneyText: {
         fontSize: 60,
-        color: '#a9a9a9',
+        color: '#85bb65',
         fontWeight: 'bold',
     },
     checkinsLeftText: {
@@ -289,13 +298,25 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: 8,
     },
+    newGoalContainer: {
+        backgroundColor: '#051baa',
+        borderRadius: 10,
+        padding: 10,
+        marginTop: 30,
+        width: '80%'
+    },
+    newGoalText: {
+        color: '#fff',
+        fontSize: 20,
+        textAlign: 'center'
+    },
+
 
 
 
 
     
 });
-
 
 
 
