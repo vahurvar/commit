@@ -34,7 +34,7 @@ const App = StackNavigator({
     }
 });
 
-export default class fitbet extends Component {
+export default class commit extends Component {
     render() {
         return (
             <App/>
@@ -42,4 +42,4 @@ export default class fitbet extends Component {
     }
 }
 
-AppRegistry.registerComponent('fitbet', () => fitbet);
+AppRegistry.registerComponent('commit', () => commit);

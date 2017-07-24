@@ -1,4 +1,4 @@
-package com.fitbet;
+package com.commit;
 
 import android.app.Application;
 

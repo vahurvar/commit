@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "fitbet-tvOS.app"
-               BlueprintName = "fitbet-tvOS"
-               ReferencedContainer = "container:fitbet.xcodeproj">
+               BuildableName = "commit-tvOS.app"
+               BlueprintName = "commit-tvOS"
+               ReferencedContainer = "container:commit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "fitbet-tvOSTests.xctest"
-               BlueprintName = "fitbet-tvOSTests"
-               ReferencedContainer = "container:fitbet.xcodeproj">
+               BuildableName = "commit-tvOSTests.xctest"
+               BlueprintName = "commit-tvOSTests"
+               ReferencedContainer = "container:commit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "fitbet-tvOSTests.xctest"
-               BlueprintName = "fitbet-tvOSTests"
-               ReferencedContainer = "container:fitbet.xcodeproj">
+               BuildableName = "commit-tvOSTests.xctest"
+               BlueprintName = "commit-tvOSTests"
+               ReferencedContainer = "container:commit.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "fitbet-tvOS.app"
-            BlueprintName = "fitbet-tvOS"
-            ReferencedContainer = "container:fitbet.xcodeproj">
+            BuildableName = "commit-tvOS.app"
+            BlueprintName = "commit-tvOS"
+            ReferencedContainer = "container:commit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "fitbet-tvOS.app"
-            BlueprintName = "fitbet-tvOS"
-            ReferencedContainer = "container:fitbet.xcodeproj">
+            BuildableName = "commit-tvOS.app"
+            BlueprintName = "commit-tvOS"
+            ReferencedContainer = "container:commit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "fitbet-tvOS.app"
-            BlueprintName = "fitbet-tvOS"
-            ReferencedContainer = "container:fitbet.xcodeproj">
+            BuildableName = "commit-tvOS.app"
+            BlueprintName = "commit-tvOS"
+            ReferencedContainer = "container:commit.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

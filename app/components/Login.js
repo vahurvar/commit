@@ -11,11 +11,9 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    AsyncStorage,
-    TextInput
+    StatusBar,
+    View
 } from 'react-native';
-
-import {Validate} from 'react-custom-validation';
 
 export default class Login extends Component {
 
@@ -68,12 +66,11 @@ export default class Login extends Component {
     }
 
     areInputsFilled() {
-        return this.state.user.email.length === 0 || this.state.user.password === 0;
+        return this.state.email.length === 0 || this.state.password.length === 0;
     }
 
     async getUser() {
-        let userString = await AsyncStorage.getItem('user');
-        return JSON.parse(userString);
+        return JSON.parse(await AsyncStorage.getItem('user'));
     }
 
     render() {

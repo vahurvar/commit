@@ -1,197 +1,141 @@
 /* @flow */
 'use strict';
 
-import React, {
-    Component
-} from 'react';
+import React, {Component} from 'react';
 
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    AsyncStorage,
-    StatusBar,
-} from 'react-native';
-
-import Goal from './Goal.js'
-
-
+import {AsyncStorage, StatusBar, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 
 export default class Home extends Component {
 
     static navigationOptions = {
         title: 'Home',
         headerTintColor: '#fff',
-        headerStyle: { backgroundColor: '#051baa' },
-        headerTitleStyle: { color: '#fff' },
-    }
+        headerStyle: {backgroundColor: '#051baa'},
+        headerTitleStyle: {color: '#fff'},
+    };
 
     constructor(props) {
         super(props);
         this.state = {
-            isGoals: false,
-            goalTitle: '',
-            startDate: '',
-            numOfCheckins: null,
-            goalPeriod: null,
-            goalMoney: null,
-            goalTitle2: '',
-            startDate2: '',
-            numOfCheckins2: null,
-            goalPeriod2: null,
-            goalMoney2: null
+            hasGoals: false,
+            goals: []
         }
     }
 
     componentWillMount() {
         AsyncStorage.getItem("goals")
             .then(value => {
-                if(value == null) {
-                    this.setState({isGoals: false})
-                }
-                else {
-                    this.setState({isGoals:true})
+                if (value === null) {
+                    this.setState({hasGoals: false});
+                } else {
+                    this.setState({hasGoals: true});
+                    this.parseAndSetGoals(value);
                 }
             })
-
-            this.setGoalStates()
-            this.setGoalStates2()
-
     }
 
-    setGoalStates() {
-
+    parseAndSetGoals(value) {
         AsyncStorage.getItem("goals")
-                    .then(value => {
-                        var goalObject = JSON.parse(value)
-                        var i = 0
-                        
+            .then(value => {
+                var goalObject = JSON.parse(value);
+                console.log("JSON: " + JSON.stringify(goalObject));
+                var i = 0;
+                this.setState({goalTitle: goalObject[i].title});
+                this.setState({startDate: goalObject[i].startDay});
+                this.setState({numOfCheckins: goalObject[i].numberOfCommits});
+                this.setState({goalPeriod: goalObject[i].period});
+                this.setState({goalMoney: goalObject[i].money})
+            });
 
-                        this.setState({ goalTitle : goalObject[i].title})
-                        this.setState({ startDate : goalObject[i].startDay})
-                        this.setState({ numOfCheckins : goalObject[i].numberOfCommits})
-                        this.setState({ goalPeriod : goalObject[i].period})
-                        this.setState({ goalMoney : goalObject[i].money})
-    
 
-                    });
 
-    }
-
-    setGoalStates2() {
-
-        AsyncStorage.getItem("goals")
-                    .then(value => {
-                        var goalObject = JSON.parse(value)
-                        var i = 1
-                        
-
-                        this.setState({ goalTitle2 : goalObject[i].title})
-                        this.setState({ startDate2 : goalObject[i].startDay})
-                        this.setState({ numOfCheckins2 : goalObject[i].numberOfCommits})
-                        this.setState({ goalPeriod2 : goalObject[i].period})
-                        this.setState({ goalMoney2 : goalObject[i].money})
-    
-
-                    });
+        let goals = [];
+        let goalObject = JSON.parse(value);
+        for (let goal of goalObject) {
+            console.log("Mardo")
+            console.log(goal)
+            goals.push(goal);
+        }
+        console.log("All goasl")
+        console.log(goals)
+        this.setState({goals: goals})
 
     }
 
+    getGoalCard(goal) {
+        console.log("Goals")
+        console.log(goal)
+        return (<TouchableOpacity
+            key= {goal.goalId}
+            style={styles.goalCard}
+            onPress={() => this.props.navigation.navigate('CheckinPage')}>
 
+            <View style={styles.leftTextContainer}>
+                <View style={styles.leftTopTextContainer}>
+                    <Text style={styles.goalTitleText}>{goal.title}</Text>
+                </View>
+
+                <View style={styles.leftMiddleTextContainer}>
+                    <Text style={styles.countdownText}>10 days left</Text>
+                </View>
+
+                <View style={styles.leftBottomTextContainer}>
+                    <Text style={styles.checkinsLeftText}>10 check-ins
+                        remaining!</Text>
+                </View>
+            </View>
+
+            <View style={styles.rightTextContainer}>
+                <Text style={styles.moneyText}>${goal.money}</Text>
+            </View>
+        </TouchableOpacity>)
+    }
+
+    getGoalCards() {
+        let goalCards = [];
+        for (let goal of this.state.goals) {
+            goalCards.push(this.getGoalCard(goal));
+        }
+        return goalCards;
+    }
 
     render() {
-
-        const areGoals = this.state.isGoals;
+        let goalCards = this.getGoalCards();
 
         let view = null;
-
-        var goals = [];
-
-
-
-        if (areGoals) {
-
-
-
+        let view2 = null;
+        //TODO: Refactor this method starting from here
+        if (this.state.hasGoals) {
             view =
-                    <View style={styles.goalContainer}>
-                    <TouchableOpacity style={styles.goalCard} onPress={() => this.props.navigation.navigate('CheckinPage')}>
-                        <View style={styles.leftTextContainer}>
-                            <View style={styles.leftTopTextContainer}>
-                                <Text style={styles.goalTitleText}>{this.state.goalTitle}</Text>
-                            </View>
-
-                            <View style={styles.leftMiddleTextContainer}>
-                                <Text style={styles.countdownText}>{this.state.goalPeriod} days left</Text>
-                            </View>
-
-                            <View style={styles.leftBottomTextContainer}>
-                                <Text style={styles.checkinsLeftText}>{this.state.numOfCheckins} check-ins remaining!</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.rightTextContainer}>
-                            <Text style={styles.moneyText}>${this.state.goalMoney}</Text>
-                        </View>
+                <View style={styles.goalContainer}>
+                    {goalCards}
+                    <TouchableOpacity style={styles.newGoalContainer}
+                                      onPress={() => this.props.navigation.navigate('NewGoalPage')}>
+                        <Text style={styles.newGoalText}>New Goal</Text>
                     </TouchableOpacity>
+                </View>
+        } else {
+            view2 = <View style={styles.textAndButtonContainer}>
+                <Text style={styles.textAboveButton}>You do not have any goals, click below to begin!</Text>
 
-                    <TouchableOpacity style={styles.goalCard} onPress={() => this.props.navigation.navigate('CheckinPage')}>
-                        <View style={styles.leftTextContainer}>
-                            <View style={styles.leftTopTextContainer}>
-                                <Text style={styles.goalTitleText}>{this.state.goalTitle2}</Text>
-                            </View>
-
-                            <View style={styles.leftMiddleTextContainer}>
-                                <Text style={styles.countdownText}>{this.state.goalPeriod2} days left</Text>
-                            </View>
-
-                            <View style={styles.leftBottomTextContainer}>
-                                <Text style={styles.checkinsLeftText}>{this.state.numOfCheckins2} check-ins remaining!</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.rightTextContainer}>
-                            <Text style={styles.moneyText}>${this.state.goalMoney2}</Text>
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.newGoalContainer} onPress={() => this.props.navigation.navigate('NewGoalPage')}>
-                            <Text style={styles.newGoalText}>New Goal</Text>
-                        </TouchableOpacity>
+                <TouchableOpacity style={styles.newOathButtonContainer}
+                                  onPress={() => this.props.navigation.navigate('NewGoalPage')}>
+                    <Text style={styles.newOathButtonText}>New Goal</Text>
+                </TouchableOpacity>
 
 
-                    </View>
-
+            </View>
 
         }
-
-
-        else {
-
-            view = <View style={styles.textAndButtonContainer}>
-                        <Text style={styles.textAboveButton}>You do not have any goals, click below to begin!</Text>
-
-                        <TouchableOpacity style={styles.newOathButtonContainer} onPress={() => this.props.navigation.navigate('NewGoalPage')}>
-                            <Text style={styles.newOathButtonText}>New Goal</Text>
-                        </TouchableOpacity>
-
-
-                    </View>
-
-        }
-
-
         return (
             <View style={styles.container}>
-            <StatusBar barStyle="light-content" />
+                <StatusBar barStyle="light-content"/>
                 {view}
+                {view2}
             </View>
         );
     }
 }
-
-
 
 const styles = StyleSheet.create({
     container: {
@@ -226,12 +170,6 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
 
-
-
-
-
-
-
     goalContainer: {
         backgroundColor: '#fff',
         alignItems: 'center',
@@ -243,7 +181,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#fff',
         shadowColor: '#a9a9a9',
-        shadowOffset: { width: 0, height: 1 },
+        shadowOffset: {width: 0, height: 1},
         shadowOpacity: 1,
         shadowRadius: 2,
         flexDirection: 'row',
@@ -309,13 +247,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 20,
         textAlign: 'center'
-    },
-
-
-
-
-
-    
+    }
 });
 
 
